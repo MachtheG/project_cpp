@@ -103,13 +103,57 @@ void viewActivities(const vector<Activity>& activities) {
     }
 }
 
-void saveToFile(const string& filename) {
-    ofstream file(filename);
-    for (const auto& student : students) {
-        file << student.firstname << "," << student.surname << "," << student.gender << "," << student.age << "," << student.group << "\n";
+//void saveToFile(const string& filename) {
+//    ofstream file(filename);
+//    for (const auto& student : students) {
+//        file << student.firstname << "," << student.surname << "," << student.gender << "," << student.age << "," << student.group << "\n";
+//    }
+//    file.close();
+//    cout << "Data saved to " << filename << "\n";
+//}
+
+int main(){
+    initializeActivities();
+    int choice;
+
+    while(true){
+        cout <<"1. Add Student \n";
+        cout <<"2. View Students \n";
+        cout <<"3. View Clubs / Societies \n";
+        cout <<"4. View Sports \n";
+        cout <<"5. Save all Files \n";
+        cout <<"6. Exit \n";
+        cout <<"Enter choice: ";
+        cin >> choice;
+
+        switch (choice)
+switch (choice){
+            case 1:
+                addStudent();
+        break;
+
+    case 2:
+                viewActivities();
+        break;
+
+    case 3:
+                viewActivities(clubs);
+        break;
+
+    case 4:
+                viewActivities(sports);
+        break;
+
+//            case 5:
+//                saveToFile("students.csv");
+//        break;
+            case 6:
+                return 0;
+    default:
+        cout << "Invalid choice. Please try again. \n";
+
+        }
     }
-    file.close();
-    cout << "Data saved to " << filename << "\n";
 }
 
 
