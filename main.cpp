@@ -89,8 +89,31 @@ void addStudent(){
     students.push_back(newStudent);
 
     cout << "Student added successfully!\n";
-
-
 }
+
+void viewStudents(){
+    for (const auto& student : students) {
+        cout << student.firstname << "  " << student.surname << "  " << student.gender << "  " << student.age << ", Group " << student.group << ")\n";
+    }
+}
+
+void viewActivities(const vector<Activity>& activities) {
+    for (const auto& activity : activities) {
+       // cout << activity.name << " (Remaining capacity: " << activity.getRemainingCapacity() << ")\n";
+    }
+}
+
+void saveToFile(const string& filename) {
+    ofstream file(filename);
+    for (const auto& student : students) {
+        file << student.firstname << "," << student.surname << "," << student.gender << "," << student.age << "," << student.group << "\n";
+    }
+    file.close();
+    cout << "Data saved to " << filename << "\n";
+}
+
+
+
+
 
 
