@@ -11,16 +11,26 @@ using namespace std;
 
 class Student {
 
+public:
+    string firstname;
+    string surname;
+    string gender;
 
+    int age;
+    int group;
 
+    vector<string> sports;
+    vector<string> clubs;
+
+    // Definition of the constructor
+    Student(string fn, string sn, string g, int a, int grp)
+        : firstname(fn), surname(sn), gender(g), age(a), group(grp) {}
 };
 
-
-
-
+//
 
 int main() {
-    cout << "Student Module: \t" << endl;
+
 
     return 0;
 }
