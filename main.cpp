@@ -133,7 +133,7 @@ switch (choice){
         break;
 
     case 2:
-                viewActivities();
+                viewStudents();
         break;
 
     case 3:
