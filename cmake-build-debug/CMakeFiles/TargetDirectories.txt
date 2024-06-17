@@ -1,0 +1,3 @@
+/home/machtheg/Desktop/Final/cmake-build-debug/CMakeFiles/Final.dir
+/home/machtheg/Desktop/Final/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/machtheg/Desktop/Final/cmake-build-debug/CMakeFiles/rebuild_cache.dir
