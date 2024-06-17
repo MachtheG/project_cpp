@@ -46,8 +46,29 @@ public:
 
     int getRemainingCapacity() {
         return max_capacity - students.size();
+
     }
-
-
 };
+
+vector<Student> students;
+vector<Activity> sports;
+vector<Activity> clubs;
+
+void initializeActivities() {
+    //Initialize sports
+    sports.emplace_back("Rugby", 20);
+    sports.emplace_back("Athletics", 20);
+    sports.emplace_back("Swimming", 20);
+    sports.emplace_back("Football", 20);
+
+    //Initialize clubs
+    clubs.emplace_back("Journalism Club", 60);
+    clubs.emplace_back("Red Cross Society", 60);
+    clubs.emplace_back("AISEC", 60);
+    clubs.emplace_back("Business Club", 60);
+    clubs.emplace_back("Computer Science Club", 60);
+
+
+}
+
 
