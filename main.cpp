@@ -116,7 +116,7 @@ int main(){
     initializeActivities();
     int choice;
 
-    while(true){
+    while (true) {
         cout <<"1. Add Student \n";
         cout <<"2. View Students \n";
         cout <<"3. View Clubs / Societies \n";
@@ -126,7 +126,6 @@ int main(){
         cout <<"Enter choice: ";
         cin >> choice;
 
-        switch (choice)
 switch (choice){
             case 1:
                 addStudent();
@@ -147,6 +146,7 @@ switch (choice){
 //            case 5:
 //                saveToFile("students.csv");
 //        break;
+
             case 6:
                 return 0;
     default:
