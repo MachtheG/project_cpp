@@ -68,6 +68,28 @@ void initializeActivities() {
     clubs.emplace_back("Business Club", 60);
     clubs.emplace_back("Computer Science Club", 60);
 
+}
+
+void addStudent(){
+    string firstname, surname, gender;
+    int age, group;
+
+    cout << "Enter Firstname: \t" << endl;
+    cin >> firstname;
+    cout << "Enter Surname: \t" << endl;
+    cin >> surname;
+    cout << "Enter Gender (Male/Female): \t" << endl;
+    cin >> gender;
+    cout << "Enter age: \t" << endl;
+    cin >> age;
+    cout << "Enter Group (1, 2 or 3): \t" << endl;
+    cin >> group;
+
+    Student newStudent(firstname, surname, gender, age, group);
+    students.push_back(newStudent);
+
+    cout << "Student added successfully!\n";
+
 
 }
 
