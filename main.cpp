@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -32,8 +33,10 @@ public:
     int max_capacity;
     vector<Student> students;
 
+    // Constructor to initialize activity name and capacity
     Activity(string n, int cap) : name(std::move(n)), max_capacity(cap) {}
 
+    // Method to add a student to the activity if capacity allows
     bool addStudent(const Student& student) {
         if (students.size() < max_capacity) {
             students.push_back(student);
@@ -42,16 +45,18 @@ public:
         return false;
     }
 
+    // Method to get the remaining capacity of the activity
     int getRemainingCapacity() const {
         return max_capacity - students.size();
     }
 };
 
-// Global list
+// Global list of students, sports, and clubs
 vector<Student> students;
 vector<Activity> sports;
 vector<Activity> clubs;
 
+// Function to initialize activities
 void initializeActivities() {
     // Initialize sports
     sports.emplace_back("Rugby", 20);
@@ -67,6 +72,51 @@ void initializeActivities() {
     clubs.emplace_back("Computer Science Club", 60);
 }
 
+// Function to load student data from a file
+void loadFromFile(const string& filename) {
+    ifstream file(filename);
+    string line;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string firstname, surname, gender, age_str, group_str;
+        getline(ss, firstname, ',');
+        getline(ss, surname, ',');
+        getline(ss, gender, ',');
+        getline(ss, age_str, ',');
+        getline(ss, group_str, ',');
+
+        int age = stoi(age_str);
+        int group = stoi(group_str);
+        Student student(firstname, surname, gender, age, group);
+
+        string activity;
+        while (getline(ss, activity, ',')) {
+            bool found = false;
+            // Check if the activity is a sport
+            for (auto& sport : sports) {
+                if (sport.name == activity) {
+                    sport.addStudent(student);
+                    student.sports.push_back(activity);
+                    found = true;
+                    break;
+                }
+            }
+            // If not a sport, check if it's a club
+            if (!found) {
+                for (auto& club : clubs) {
+                    if (club.name == activity) {
+                        club.addStudent(student);
+                        student.clubs.push_back(activity);
+                        break;
+                    }
+                }
+            }
+        }
+        students.push_back(student);
+    }
+    file.close();
+}
+
 // Function to add a student and their activities
 void addStudent() {
     string firstname, surname, gender;
@@ -74,6 +124,7 @@ void addStudent() {
     vector<string> selectedSports;
     vector<string> selectedClubs;
 
+    // Get student details
     cout << "Enter Firstname: ";
     cin >> firstname;
     cout << "Enter Surname: ";
@@ -90,6 +141,7 @@ void addStudent() {
     string participateInSports;
     cin >> participateInSports;
 
+    // If student wants to participate in sports
     if (participateInSports == "yes") {
         // Allow selection of one sport
         while (selectedSports.size() < 1) {
@@ -97,6 +149,7 @@ void addStudent() {
             string sport;
             cin >> sport;
             bool found = false;
+            // Check if the selected sport exists and has remaining capacity
             for (auto& s : sports) {
                 if (s.name == sport && s.getRemainingCapacity() > 0) {
                     s.addStudent({firstname, surname, gender, age, group});
@@ -116,6 +169,7 @@ void addStudent() {
             string club;
             cin >> club;
             bool found = false;
+            // Check if the selected club exists and has remaining capacity
             for (auto& c : clubs) {
                 if (c.name == club && c.getRemainingCapacity() > 0) {
                     c.addStudent({firstname, surname, gender, age, group});
@@ -135,6 +189,7 @@ void addStudent() {
             string club;
             cin >> club;
             bool found = false;
+            // Check if the selected club exists and has remaining capacity
             for (auto& c : clubs) {
                 if (c.name == club && c.getRemainingCapacity() > 0) {
                     c.addStudent({firstname, surname, gender, age, group});
@@ -189,8 +244,8 @@ void viewActivities(const vector<Activity>& activities) {
 }
 
 // Function to save students' data to a file
-void saveToFile(const string& filename) {
-    ofstream file(filename);
+void saveToFile() {
+    ofstream file("progcpp.csv");
     for (const auto& student : students) {
         file << student.firstname << "," << student.surname << "," << student.gender << "," << student.age << "," << student.group;
         for (const auto& sport : student.sports) {
@@ -202,15 +257,18 @@ void saveToFile(const string& filename) {
         file << "\n";
     }
     file.close();
-    cout << "Data saved to " << filename << "\n";
+    cout << "Data saved to progcpp.csv\n";
 }
 
 int main() {
     initializeActivities(); // Initialize the activities
+    loadFromFile("progcpp.csv"); // Load existing data from file
+
     int choice;
 
     // Main menu loop
     while (true) {
+        // Display menu options
         cout << "1. Add Student\n";
         cout << "2. View Students\n";
         cout << "3. View Clubs / Societies\n";
@@ -220,6 +278,7 @@ int main() {
         cout << "Enter choice: ";
         cin >> choice;
 
+        // Execute the selected option
         switch (choice) {
             case 1:
                 addStudent(); // Add a new student
@@ -234,7 +293,7 @@ int main() {
                 viewActivities(sports); // View sports
                 break;
             case 5:
-                saveToFile("students.csv"); // Save data to file
+                saveToFile(); // Save data to file
                 break;
             case 6:
                 return 0; // Exit the program
